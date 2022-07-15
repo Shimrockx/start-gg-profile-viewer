@@ -1,0 +1,136 @@
+{
+  "allowHttpBackend": false,
+  "backendCommand": "",
+  "backendFolderName": "",
+  "certificateExceptions": [
+    {
+      "isAllowed": true,
+      "isEphemeral": false,
+      "isOrigin": true,
+      "value": "https://localhost:8080"
+    },
+    {
+      "isAllowed": true,
+      "isEphemeral": false,
+      "isOrigin": true,
+      "value": "wss://localhost:8080"
+    }
+  ],
+  "extensionViews": [
+    {
+      "channelId": "121027413",
+      "configurationAnchor": "panel",
+      "displayChannelName": "shimrockx",
+      "features": {
+        "isBitsEnabled": false,
+        "isChatEnabled": false,
+        "isSubscriptionStatusAvailable": false
+      },
+      "frameSize": {
+        "width": 1280,
+        "height": 720
+      },
+      "id": "3",
+      "isPopout": false,
+      "label": "Panel",
+      "linked": false,
+      "linkedUserId": "",
+      "orientation": "Portrait",
+      "type": "panel",
+      "viewerType": "Broadcaster"
+    },
+    {
+      "channelId": "121027413",
+      "configurationAnchor": "panel",
+      "displayChannelName": "shimrockx",
+      "features": {
+        "isBitsEnabled": false,
+        "isChatEnabled": false,
+        "isSubscriptionStatusAvailable": false
+      },
+      "frameSize": {
+        "width": 1280,
+        "height": 720
+      },
+      "id": "6",
+      "isPopout": false,
+      "label": "",
+      "linked": true,
+      "linkedUserId": "265737932",
+      "orientation": "Portrait",
+      "type": "config",
+      "viewerType": "Broadcaster"
+    }
+  ],
+  "manifest": {
+    "anchor": "panel",
+    "assetUrls": [],
+    "authorName": "github.com/Shimrockx",
+    "bitsEnabled": false,
+    "canInstall": true,
+    "configUrl": "https://localhost:8080/config.html",
+    "configurationLocation": "hosted",
+    "description": "Share your start.gg profile with your viewers on start.gg. Chess Profile extension displays your past results.",
+    "eulaTosUrl": "https://www.start.gg/about/tos",
+    "hasChatSupport": false,
+    "iconUrl": "https://extensions-discovery-images.twitch.tv/ksjaek493w0o9wdyfg7ud45pve0ec4/0.0.1/logo12aed0b0-cd39-4f5d-841f-3a7f56694597",
+    "iconUrls": {
+      "100x100": "https://extensions-discovery-images.twitch.tv/ksjaek493w0o9wdyfg7ud45pve0ec4/0.0.1/logo12aed0b0-cd39-4f5d-841f-3a7f56694597",
+      "24x24": "https://extensions-discovery-images.twitch.tv/ksjaek493w0o9wdyfg7ud45pve0ec4/0.0.1/taskbar8a084218-16f5-45a4-a0d5-208bd187c15e",
+      "300x200": "https://extensions-discovery-images.twitch.tv/ksjaek493w0o9wdyfg7ud45pve0ec4/0.0.1/discovery4b95ca8f-6824-4373-9f9b-925d9ebd85dc"
+    },
+    "id": "ksjaek493w0o9wdyfg7ud45pve0ec4",
+    "installationCount": -42,
+    "liveConfigUrl": "",
+    "name": "start.gg - Profile",
+    "panelHeight": 500,
+    "privacyPolicyUrl": "https://www.start.gg/about/privacy",
+    "requestIdentityLink": false,
+    "requiredBroadcasterAbilities": [],
+    "screenshotUrls": [
+      "https://extensions-discovery-images.twitch.tv/ksjaek493w0o9wdyfg7ud45pve0ec4/0.0.1/screenshot5d921047-8c5a-4502-9123-f6664f2f873e"
+    ],
+    "sku": "",
+    "state": "Testing",
+    "subscriptionsSupportLevel": "none",
+    "summary": "Share your start.gg profile with your viewers on start.gg. Chess Profile extension displays your past results.",
+    "supportEmail": "shimrock@protonmail.com",
+    "vendorCode": "",
+    "version": "0.0.1",
+    "viewerSummary": "Share your start.gg profile with your viewers on start.gg. Chess Profile extension displays your past results.",
+    "viewerUrl": "https://localhost:8080/panel.html",
+    "viewerUrls": {
+      "mobile": "https://localhost:8080/mobile.html",
+      "panel": "https://localhost:8080/panel.html"
+    },
+    "views": {
+      "mobile": {
+        "viewerUrl": "https://localhost:8080/mobile.html"
+      },
+      "panel": {
+        "viewerUrl": "https://localhost:8080/panel.html",
+        "height": 500,
+        "canLinkExternalContent": true
+      },
+      "config": {
+        "viewerUrl": "https://localhost:8080/config.html",
+        "canLinkExternalContent": true
+      }
+    },
+    "whitelistedConfigUrls": [
+      "https://api.start.gg/",
+      " https://www.start.gg",
+      "https://github.com"
+    ],
+    "whitelistedPanelUrls": [
+      "https://api.start.gg/",
+      " https://www.start.gg",
+      "https://github.com"
+    ]
+  },
+  "frontendCommand": "npm run host",
+  "frontendFolderName": "public",
+  "name": "start-gg-profile-viewer",
+  "usingRandomFrontendHostingPort": false,
+  "version": 3
+}

@@ -1,0 +1,231 @@
+.navbar {
+    position: fixed;
+    display: flex;
+    top: 0;
+    left: 0;
+    flex: 1 0 auto;
+    height: 100%;
+    border-right: 0px;
+    z-index: 1050;
+    flex-direction: column;
+    transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    box-shadow: none;
+    overflow-y: hidden;
+    outline: 0;
+    background-color: #fff;
+    color: #031221;
+}
+
+.navbar-container {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+}
+
+.navbar-top {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 2.3rem;
+    justify-content: flex-start;
+    background: #252d37;
+    color: #c3cacf;
+}
+
+.navbar-logo-container {
+    position: relative;
+    padding: 0.8rem 0;
+    flex: 0 0 auto;
+    width: 100%;
+    margin: calc(0.8rem * 0.5) 0;
+}
+
+.navbar-help-container {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.navbar-logo-link {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    flex: 1 1 4rem;
+}
+
+a {
+    cursor: pointer;
+    background-color: transparent;
+}
+
+.navbar-logo {
+    width: 24px;
+    height: 24px;
+}
+
+.feature-canvas {
+    position: relative;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    background-color: #fff;
+}
+
+.header {
+    padding-left: 2rem;
+    padding-right: 2rem;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    max-width: 230px;
+    border-bottom: 1px solid #d6dade;
+}
+
+.header-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    align-items: center;
+    width: 100%;
+}
+
+.profile-container {
+    flex-direction: row;
+    margin-left: 8px;
+}
+
+.profile-main-container {
+    display: flex;
+}
+
+.profile-avatar-container {
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+    height: 2.1rem;
+    width: 2.1rem;
+    overflow: hidden;
+    user-select: none;
+    border-radius: 50%;
+    border: 1px solid rgb(249, 249, 251);
+    background-color: rgb(214, 218, 222);
+}
+
+.profile-avatar {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    object-fit: cover;
+    color: transparent;
+    border-style: none;
+}
+
+.profile-name-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: start;
+    line-height: 1.4;
+    color: rgb(3, 18, 33);
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.009375em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.profile-name-prefix-light {
+    margin-right: 4px;
+    color: rgba(3, 18, 33, 0.6);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 15px;
+    max-width: initial;
+    flex-shrink: 9999;
+}
+
+.profile-name-prefix-dark {
+    margin-right: 4px;
+    color: rgba(208, 215, 223, 0.6);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 15px;
+    max-width: initial;
+    flex-shrink: 9999;
+}
+
+.profile-name-gamertag-light {
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex-shrink: 1;
+    color: rgb(3, 18, 33);
+}
+
+.profile-name-gamertag-dark {
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex-shrink: 1;
+    color: #fff;
+}
+
+.profile-info-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: start;
+}
+
+.profile-location-container-light {
+    margin-bottom: 8px;
+    margin-left: 8px;
+    color: rgba(3, 18, 33, 0.6);
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+}
+
+.profile-location-container-dark {
+    margin-bottom: 8px;
+    margin-left: 8px;
+    color: rgba(208, 215, 223, 0.6);
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+}
+
+.profile-location {
+    font-weight: 400;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    letter-spacing: 0.009375em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: inherit;
+}
+
+.profile-main {
+    width: 100%;
+    height: 100%;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: stretch;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    flex: 1 1;
+}

@@ -1,0 +1,36 @@
+.Config {
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-weight: 400;
+    font-size: 1.4rem;
+    line-height: 1.42;
+    letter-spacing: 0.01em;
+}
+
+.Config-light {
+    background-color: #fff;
+    color: #232127;
+}
+
+.Config-dark {
+    background-color: #fff;
+    color: #232127;
+}
+
+.spinner {
+    margin-left: auto;
+    margin-right: auto;
+    border: 5px solid #3f80ff;
+    border-top: 5px solid #ff2768;
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    animation: spin 0.75s linear infinite;
+}
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

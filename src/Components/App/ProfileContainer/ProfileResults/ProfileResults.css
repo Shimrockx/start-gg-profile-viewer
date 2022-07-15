@@ -1,0 +1,28 @@
+.results {
+    background-position: 50%;
+    position: relative;
+}
+
+.results-container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+    margin-left: 8px;
+    max-width: 230px;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    flex: 0 1 100%;
+}
+
+.results-title {
+    font-weight: 700;
+    font-size: 2rem;
+    line-height: 1.4;
+    color: inherit;
+}
+
+.results-grid {
+    margin-bottom: 8px;
+    margin-top: 8px;
+    display: grid;
+    grid-template-columns: repeat(0, 1fr);
+}

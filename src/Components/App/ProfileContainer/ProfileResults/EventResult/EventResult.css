@@ -1,0 +1,134 @@
+.event {
+    height: 90px;
+    width: auto;
+    min-width: 190px;
+    max-width: 245px;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(255, 255, 255);
+    color: rgb(3, 18, 33);
+    border-radius: 4px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    overflow: hidden;
+    margin-top: 4px;
+}
+
+.event-link {
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-sizing: border-box;
+    background-color: transparent;
+    outline: currentcolor none 0px;
+    border: 0px none;
+    cursor: pointer;
+    user-select: none;
+    appearance: none;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    text-align: inherit;
+    width: 100%;
+}
+
+.event-container {
+    padding: 8px;
+}
+
+.event-result {
+    display: inherit;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.event-placement {
+    font-weight: 700;
+    font-size: 1.2rem;
+    line-height: 1.4;
+    color: inherit;
+}
+
+.event-attendees {
+    font-weight: 400;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    letter-spacing: 0.009375em;
+}
+
+.event-separator {
+    margin-top: 8px;
+    margin: 0px;
+    flex-shrink: 0;
+    border-width: 0px 0px thin;
+    border-style: solid;
+    border-color: rgb(214, 218, 222);
+    box-sizing: content-box;
+    height: 0;
+    overflow: visible;
+}
+
+.event-title-container {
+    margin-top: 8px;
+    min-width: 0px;
+    display: flex;
+}
+
+.event-title-profile {
+    margin-right: 0.5rem;
+    margin-top: 0px;
+    align-self: center;
+}
+
+.event-title-profile-avatar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 0px;
+    overflow: hidden;
+    user-select: none;
+    background-color: rgb(59, 67, 80);
+    height: 1.8rem;
+    width: 1.8rem;
+}
+
+.event-title-profile-avatar-img {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    object-fit: cover;
+    color: transparent;
+    text-indent: 10000px;
+}
+
+.event-title-content {
+    flex-direction: column;
+    min-width: 0px;
+    justify-content: center;
+    text-align: start;
+    align-items: center;
+    color: rgb(59, 67, 80);
+    font-weight: 400;
+    font-size: 0.8rem;
+    line-height: 1.3;
+    letter-spacing: 0.0125em;
+}
+
+.event-title-typography {
+    margin: 0px;
+    color: rgb(3, 18, 33);
+    font-weight: bold;
+    line-height: 1.2;
+    letter-spacing: 0.01em;
+    display: inherit;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.event-title-typography-light {
+    color: rgba(3, 18, 33, 0.6);
+}
