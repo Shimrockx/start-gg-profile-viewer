@@ -1,6 +1,5 @@
 import React from "react";
 import Authentication from "../Authentication/Authentication";
-import axios from "axios";
 
 import ProfileContainer from "./ProfileContainer/ProfileContainer";
 import "./App.css";
@@ -15,7 +14,7 @@ export default class App extends React.Component {
         this.twitch = window.Twitch ? window.Twitch.ext : null;
         this.state = {
             finishedLoading: false,
-            theme: "light"
+            theme: "light",
         };
     }
 
@@ -104,23 +103,20 @@ export default class App extends React.Component {
             slug: slug,
             gamerTag: gamerTag,
             page: 1,
-            perPage: 4,
+            perPage: 12,
         };
 
         try {
-            const response = await axios.post(
-                "https://api.start.gg/gql/alpha",
-                JSON.stringify({ query, variables }),
-                {
-                    headers: {
-                        Authorization:
-                            "Bearer a5852d4b5ed80266a01b3226cc613549",
-                        "Content-Type": "application/json",
-                    },
-                }
-            );
+            const response = await fetch("https://api.start.gg/gql/alpha", {
+                method: "POST",
+                headers: {
+                    Authorization: "Bearer a5852d4b5ed80266a01b3226cc613549",
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ query, variables }),
+            });
 
-            return response.data;
+            return response.json();
         } catch (error) {
             console.error(error);
             return null;
@@ -158,7 +154,6 @@ export default class App extends React.Component {
                 let config = this.twitch.configuration.broadcaster
                     ? this.twitch.configuration.broadcaster.content
                     : "";
-                console.log(config);
                 try {
                     config = JSON.parse(config);
                     this.setConfig(config);
