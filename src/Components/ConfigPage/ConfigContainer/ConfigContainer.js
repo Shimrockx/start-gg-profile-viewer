@@ -3,35 +3,45 @@ import React from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
+import Link from "@mui/material/Link";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import "./ConfigContainer.css";
+
+import CssBaseline from "@mui/material/CssBaseline";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+let theme = createTheme({
+    palette: {
+        mode: "light",
+    },
+});
 
 export default class ConfigContainer extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
+            theme: this.props.theme,
             player: this.props.player,
         };
+
+        theme = createTheme({
+            palette: {
+                mode: this.props.theme == "dark" ? "dark" : "light",
+            },
+        });
+
     }
 
     onSubmit(event) {
         event.preventDefault();
 
         const data = new FormData(event.currentTarget);
-        if (data.get("slug") && data.get("gamerTag")) {
-            this.setState((prevState) => {
-                let player = prevState.player;
-                player = {
-                    slug: data.get("slug"),
-                    gamerTag: data.get("gamerTag"),
-                };
-                this.props.saveConfig(player);
-                return {
-                    player,
-                };
-            });
+        if (data.get("token")) {
+            this.state.player = {
+                token: data.get("token"),
+            };
+            this.props.saveConfig(this.state.player);
         }
     }
 
@@ -49,58 +59,55 @@ export default class ConfigContainer extends React.Component {
 
     render() {
         return (
-            <Container component="main" maxWidth="xs">
-                <Box
-                    sx={{
-                        marginTop: 8,
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                    }}
-                >
-                    <Typography component="h1" variant="h5">
-                        Configuration
-                    </Typography>
+            <ThemeProvider theme={theme}>
+                <Container component="main" maxWidth="xs">
                     <Box
-                        component="form"
-                        onSubmit={(e) => this.onSubmit(e)}
-                        noValidate
-                        sx={{ mt: 1 }}
+                        sx={{
+                            marginTop: 8,
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                        }}
                     >
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="slug"
-                            label="Slug (found it next to your gamertag on start.gg)"
-                            name="slug"
-                            autoFocus
-                            color="action"
-                            variant="standard"
-                        />
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="gamerTag"
-                            label="Gamertag (no team name)"
-                            type="text"
-                            id="gamerTag"
-                            color="action"
-                            variant="standard"
-                        />
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
-                            color="action"
+                        <Typography component="h1" variant="h4">
+                            Configuration
+                        </Typography>
+                        <Typography mt={2}>
+                            Here's a link to the official page of start.gg on
+                            how to get your token :{" "}
+                            <Link href="https://developer.smash.gg/docs/authentication/">
+                                Generating a Token
+                            </Link>
+                        </Typography>
+                        <Box
+                            component="form"
+                            onSubmit={(e) => this.onSubmit(e)}
+                            noValidate
+                            sx={{ mt: 1 }}
                         >
-                            Save
-                        </Button>
+                            <TextField
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="token"
+                                label="Token"
+                                name="token"
+                                autoFocus
+                                variant="standard"
+                                placeholder={this.state.player.token}
+                            />
+                            <Button
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                sx={{ mt: 3, mb: 2 }}
+                            >
+                                Save
+                            </Button>
+                        </Box>
                     </Box>
-                </Box>
-            </Container>
+                </Container>
+            </ThemeProvider>
         );
     }
 }

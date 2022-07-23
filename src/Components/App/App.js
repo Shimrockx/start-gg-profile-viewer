@@ -4,6 +4,14 @@ import Authentication from "../Authentication/Authentication";
 import ProfileContainer from "./ProfileContainer/ProfileContainer";
 import "./App.css";
 
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { CssBaseline } from "@mui/material";
+let theme = createTheme({
+    palette: {
+        mode: "light",
+    },
+});
+
 export default class App extends React.Component {
     constructor(props) {
         super(props);
@@ -38,11 +46,17 @@ export default class App extends React.Component {
                 return { theme: context.theme };
             });
         }
+
+        theme = createTheme({
+            palette: {
+                mode: context.theme == "dark" ? "dark" : "light",
+            },
+        });
     }
 
-    async getUser(slug, gamerTag) {
-        let query = `query Users($slug: String!, $gamerTag: String!, $page: Int!, $perPage: Int!) {
-            user(slug: $slug) {
+    async getUser(token) {
+        let query = `query Users {
+            currentUser {
                 id,
                 player {
                     prefix,
@@ -60,7 +74,30 @@ export default class App extends React.Component {
                     height,
                     ratio,
                     type
+                }
+            }
+        }`;
+
+        try {
+            const response = await fetch("https://api.start.gg/gql/alpha", {
+                method: "POST",
+                headers: {
+                    Authorization: "Bearer " + token,
+                    "Content-Type": "application/json",
                 },
+                body: JSON.stringify({ query }),
+            });
+
+            return response.json();
+        } catch (error) {
+            console.error(error);
+            return null;
+        }
+    }
+
+    async getEvents(token, gamerTag) {
+        let query = `query Users($gamerTag: String!, $page: Int!, $perPage: Int!) {
+            currentUser {
                 events(query: {
                         perPage: $perPage,
                         page: $page
@@ -100,7 +137,6 @@ export default class App extends React.Component {
             }
         }`;
         let variables = {
-            slug: slug,
             gamerTag: gamerTag,
             page: 1,
             perPage: 12,
@@ -110,7 +146,7 @@ export default class App extends React.Component {
             const response = await fetch("https://api.start.gg/gql/alpha", {
                 method: "POST",
                 headers: {
-                    Authorization: "Bearer a5852d4b5ed80266a01b3226cc613549",
+                    Authorization: "Bearer " + token,
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({ query, variables }),
@@ -124,18 +160,25 @@ export default class App extends React.Component {
     }
 
     async setConfig(config) {
-        const data = await this.getUser(config.slug, config.gamerTag);
-        if (data != null) {
-            this.setState(() => {
-                return {
-                    query: data,
-                };
-            });
-
-            if (!this.state.finishedLoading) {
+        const user = await this.getUser(config.token);
+        if (user != null) {
+            const events = await this.getEvents(
+                config.token,
+                user.data.currentUser.player.gamerTag
+            );
+            if (events != null) {
                 this.setState(() => {
-                    return { finishedLoading: true };
+                    return {
+                        userData: user.data,
+                        eventsData: events.data,
+                    };
                 });
+
+                if (!this.state.finishedLoading) {
+                    this.setState(() => {
+                        return { finishedLoading: true };
+                    });
+                }
             }
         }
     }
@@ -173,26 +216,30 @@ export default class App extends React.Component {
     }
 
     render() {
-        if (this.state.finishedLoading && this.state.query != null) {
-            if (this.state.query.data != null) {
-                if (this.state.query.data.user != null) {
-                    return (
-                        <div
-                            className={
-                                this.state.theme === "light"
-                                    ? "App App-light"
-                                    : "App App-dark"
-                            }
-                        >
-                            <ProfileContainer
-                                query={this.state.query}
-                                authentication={this.Authentication}
-                                theme={this.state.theme}
-                            />
-                        </div>
-                    );
-                }
-            }
+        if (
+            this.state.finishedLoading &&
+            this.state.userData != null &&
+            this.state.eventsData != null
+        ) {
+            return (
+                <ThemeProvider theme={theme}>
+                    <CssBaseline />
+                    <div
+                        className={
+                            this.state.theme === "light"
+                                ? "App App-light"
+                                : "App App-dark"
+                        }
+                    >
+                        <ProfileContainer
+                            authentication={this.Authentication}
+                            theme={this.state.theme}
+                            userData={this.state.userData}
+                            eventsData={this.state.eventsData}
+                        />
+                    </div>
+                </ThemeProvider>
+            );
         } else {
             return (
                 <div

@@ -2,6 +2,7 @@ import React from "react";
 import Authentication from "../Authentication/Authentication";
 import ConfigContainer from "./ConfigContainer/ConfigContainer";
 
+import Snackbar from "@mui/material/Snackbar";
 import "./Config.css";
 
 export default class ConfigPage extends React.Component {
@@ -14,7 +15,8 @@ export default class ConfigPage extends React.Component {
         this.state = {
             finishedLoading: false,
             theme: "light",
-            player: { slug: "", gamerTag: "" },
+            player: { token: "" },
+            configUpdated: false,
         };
     }
 
@@ -65,14 +67,16 @@ export default class ConfigPage extends React.Component {
     }
 
     saveConfig(player) {
+        this.state.player = player;
         let json = JSON.stringify(player);
         this.twitch.configuration.set("broadcaster", "0.0.1", json);
 
-        this.setState((prevState) => {
-            return {
-                player,
-            };
-        });
+        // Enable snackbar
+        this.state.configUpdated = true;
+
+        setTimeout(() => {
+            this.state.configUpdated = false;
+        }, 6000);
     }
 
     render() {
@@ -87,8 +91,14 @@ export default class ConfigPage extends React.Component {
                         }
                     >
                         <ConfigContainer
+                            theme={this.state.theme}
                             player={this.state.player}
                             saveConfig={(player) => this.saveConfig(player)}
+                        />
+                        <Snackbar
+                            open={this.state.configUpdated}
+                            autoHideDuration={6000}
+                            message="Configuration updated !"
                         />
                     </div>
                 </div>

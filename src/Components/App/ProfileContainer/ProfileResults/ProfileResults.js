@@ -9,7 +9,7 @@ export default class ProfileResults extends React.Component {
 
         this.state = {
             theme: this.props.theme,
-            events: this.props.events,
+            eventsData: this.props.eventsData,
         };
     }
 
@@ -20,18 +20,18 @@ export default class ProfileResults extends React.Component {
                     <div className="results-container">
                         {/* <span className="results-title">Results</span> */}
                         <div className="results-grid">
-                            {this.props.events
-                                ? this.props.events.nodes
-                                    ? this.props.events.nodes.map(
+                            {this.props.eventsData
+                                ? this.props.eventsData.currentUser.events.nodes
+                                    ? this.props.eventsData.currentUser.events.nodes.map(
                                           (value, index) => {
                                               return (
                                                   <EventResult
-                                                      key={index}
-                                                      node={value}
                                                       authentication={
                                                           this.Authentication
                                                       }
                                                       theme={this.state.theme}
+                                                      key={index}
+                                                      node={value}
                                                   />
                                               );
                                           }

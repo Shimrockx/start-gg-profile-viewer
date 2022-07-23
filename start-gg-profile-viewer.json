@@ -60,6 +60,28 @@
       "orientation": "Portrait",
       "type": "config",
       "viewerType": "Broadcaster"
+    },
+    {
+      "channelId": "121027413",
+      "configurationAnchor": "panel",
+      "displayChannelName": "shimrockx",
+      "features": {
+        "isBitsEnabled": false,
+        "isChatEnabled": false,
+        "isSubscriptionStatusAvailable": false
+      },
+      "frameSize": {
+        "width": 375,
+        "height": 822
+      },
+      "id": "7",
+      "isPopout": false,
+      "label": "mobile",
+      "linked": false,
+      "linkedUserId": "",
+      "orientation": "Portrait",
+      "type": "mobile",
+      "viewerType": "Broadcaster"
     }
   ],
   "manifest": {

@@ -12,15 +12,20 @@ export default class ProfileContainer extends React.Component {
 
         this.state = {
             theme: this.props.theme,
-            query: this.props.query,
+            userData: this.props.userData,
+            eventsData: this.props.eventsData,
         };
     }
 
     getUserAvatar() {
         let imgUrl = "";
-        if (this.state.query.data.user.images != null) {
-            for (let i = 0; i < this.state.query.data.user.images.length; i++) {
-                let image = this.state.query.data.user.images[i];
+        if (this.state.userData.currentUser.images != null) {
+            for (
+                let i = 0;
+                i < this.state.userData.currentUser.images.length;
+                i++
+            ) {
+                let image = this.state.userData.currentUser.images[i];
                 if (image != null) {
                     if (image.type == "profile") {
                         imgUrl = image.url;
@@ -33,8 +38,8 @@ export default class ProfileContainer extends React.Component {
 
     getPlayerName() {
         if (
-            this.state.query.data.user.player.prefix != null &&
-            this.state.query.data.user.player.gamerTag != null
+            this.state.userData.currentUser.player.prefix != null &&
+            this.state.userData.currentUser.player.gamerTag != null
         ) {
             return (
                 <>
@@ -45,7 +50,7 @@ export default class ProfileContainer extends React.Component {
                                 : "profile-name-prefix-dark"
                         }
                     >
-                        {this.state.query.data.user.player.prefix}
+                        {this.state.userData.currentUser.player.prefix}
                     </span>
                     <span
                         className={
@@ -54,13 +59,13 @@ export default class ProfileContainer extends React.Component {
                                 : "profile-name-gamertag-dark"
                         }
                     >
-                        {this.state.query.data.user.player.gamerTag}
+                        {this.state.userData.currentUser.player.gamerTag}
                     </span>
                 </>
             );
         } else if (
-            this.state.query.data.user.player.prefix != null &&
-            this.state.query.data.user.player.gamerTag == null
+            this.state.userData.currentUser.player.prefix != null &&
+            this.state.userData.currentUser.player.gamerTag == null
         ) {
             return (
                 <>
@@ -71,13 +76,13 @@ export default class ProfileContainer extends React.Component {
                                 : "profile-name-prefix-dark"
                         }
                     >
-                        {this.state.query.data.user.player.prefix}
+                        {this.state.userData.currentUser.player.prefix}
                     </span>
                 </>
             );
         } else if (
-            this.state.query.data.user.player.prefix == null &&
-            this.state.query.data.user.player.gamerTag != null
+            this.state.userData.currentUser.player.prefix == null &&
+            this.state.userData.currentUser.player.gamerTag != null
         ) {
             return (
                 <>
@@ -88,7 +93,7 @@ export default class ProfileContainer extends React.Component {
                                 : "profile-name-gamertag-dark"
                         }
                     >
-                        {this.state.query.data.user.player.gamerTag}
+                        {this.state.userData.currentUser.player.gamerTag}
                     </span>
                 </>
             );
@@ -99,36 +104,36 @@ export default class ProfileContainer extends React.Component {
 
     getLocation() {
         if (
-            this.state.query.data.user.location.city != null &&
-            this.state.query.data.user.location.country != null
+            this.state.userData.currentUser.location.city != null &&
+            this.state.userData.currentUser.location.country != null
         ) {
             return (
                 <>
                     <LocationOnIcon fontSize="small" />
                     <span className="profile-location">
-                        {this.state.query.data.user.location.city},{" "}
-                        {this.state.query.data.user.location.country}
+                        {this.state.userData.currentUser.location.city},{" "}
+                        {this.state.userData.currentUser.location.country}
                     </span>
                 </>
             );
         } else if (
-            this.state.query.data.user.location.city != null &&
-            this.state.query.data.user.location.country == null
+            this.state.userData.currentUser.location.city != null &&
+            this.state.userData.currentUser.location.country == null
         ) {
             <>
                 <LocationOnIcon fontSize="small" />
                 <span className="profile-location">
-                    {this.state.query.data.user.location.city}
+                    {this.state.userData.currentUser.location.city}
                 </span>
             </>;
         } else if (
-            this.state.query.data.user.location.city == null &&
-            this.state.query.data.user.location.country != null
+            this.state.userData.currentUser.location.city == null &&
+            this.state.userData.currentUser.location.country != null
         ) {
             <>
                 <LocationOnIcon fontSize="small" />
                 <span className="profile-location">
-                    {this.state.query.data.user.location.country}
+                    {this.state.userData.currentUser.location.country}
                 </span>
             </>;
         } else {
@@ -180,15 +185,16 @@ export default class ProfileContainer extends React.Component {
                                         <a
                                             href={
                                                 "https://www.start.gg/" +
-                                                this.state.query.data.user.slug
+                                                this.state.userData.currentUser
+                                                    .slug
                                             }
                                             target="_blank"
                                         >
                                             <img
                                                 src={this.getUserAvatar()}
                                                 alt={
-                                                    this.state.query.data.user
-                                                        .id
+                                                    this.state.userData
+                                                        .currentUser.id
                                                 }
                                                 className="profile-avatar"
                                             ></img>
@@ -214,9 +220,9 @@ export default class ProfileContainer extends React.Component {
                     </div>
                     <div className="profile-main">
                         <ProfileResults
-                            events={this.props.query.data.user.events}
                             authentication={this.Authentication}
                             theme={this.state.theme}
+                            eventsData={this.props.eventsData}
                         ></ProfileResults>
                     </div>
                 </div>

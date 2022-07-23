@@ -8,12 +8,12 @@
 
 .Config-light {
     background-color: #fff;
-    color: #232127;
+    color: #18181b;
 }
 
 .Config-dark {
-    background-color: #fff;
-    color: #232127;
+    background-color: #18181b;
+    color: #fff;
 }
 
 .spinner {
