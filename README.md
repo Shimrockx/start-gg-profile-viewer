@@ -1,5 +1,14 @@
 # start.gg - Profile
 
+This project is a twitch extension to show results from your tournaments on start.gg.
+
+**Install latest release [here](https://dashboard.twitch.tv/extensions/ksjaek493w0o9wdyfg7ud45pve0ec4-0.0.2)**
+
+## Contributing
+
+Pull requests are always welcome 😃.
+**But please do not fork / clone the repo to post a clone on twitch extension dashboard.**
+
 ## Requirements
 
 There is only one requirement.
@@ -64,7 +73,7 @@ components
 
 Each component is under the `components` folder.
 
-## To do
+### To do
 
 * Refactor the profile main display panel with MUI front-end framework like configuration panel.
 * Add option on configuration panel to choose the results we want to show.
