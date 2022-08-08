@@ -1,4 +1,4 @@
-# start.gg - Profile
+# START.GG - PROFILE
 
 This project is a twitch extension to show results from your tournaments on start.gg.
 
