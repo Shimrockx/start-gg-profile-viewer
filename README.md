@@ -73,8 +73,12 @@ components
 
 Each component is under the `components` folder.
 
-### To do
+## To do
 
 * Refactor the profile main display panel with MUI front-end framework like configuration panel.
 * Add option on configuration panel to choose the results we want to show.
 * Add option on configuration panel to choose the number of results we want to show.
+
+## LICENSE
+
+[Apache License 2.0](https://choosealicense.com/licenses/apache-2.0/)
