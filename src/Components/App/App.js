@@ -5,7 +5,7 @@ import ProfileContainer from "./ProfileContainer/ProfileContainer";
 import "./App.css";
 
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { CssBaseline } from "@mui/material";
+import { CssBaseline, Typography } from "@mui/material";
 let theme = createTheme({
     palette: {
         mode: "light",
@@ -21,6 +21,7 @@ export default class App extends React.Component {
         //if the extension is running on twitch or dev rig, set the shorthand here. otherwise, set to null.
         this.twitch = window.Twitch ? window.Twitch.ext : null;
         this.state = {
+            configError: false,
             finishedLoading: false,
             theme: "light",
         };
@@ -161,12 +162,12 @@ export default class App extends React.Component {
 
     async setConfig(config) {
         const user = await this.getUser(config.token);
-        if (user != null) {
+        if (user.data != null) {
             const events = await this.getEvents(
                 config.token,
                 user.data.currentUser.player.gamerTag
             );
-            if (events != null) {
+            if (events.data != null) {
                 this.setState(() => {
                     return {
                         userData: user.data,
@@ -180,6 +181,12 @@ export default class App extends React.Component {
                     });
                 }
             }
+        } else {
+            this.setState(() => {
+                return {
+                    configError: true,
+                };
+            });
         }
     }
 
@@ -202,6 +209,11 @@ export default class App extends React.Component {
                     this.setConfig(config);
                 } catch (error) {
                     config = "";
+                    this.setState(() => {
+                        return {
+                            configError: true,
+                        };
+                    });
                 }
             });
         }
@@ -239,6 +251,21 @@ export default class App extends React.Component {
                         />
                     </div>
                 </ThemeProvider>
+            );
+        } else if (this.state.configError) {
+            return (
+                <div
+                    className={
+                        this.state.theme === "light"
+                            ? "App App-light"
+                            : "App App-dark"
+                    }
+                >
+                    <Typography>
+                        Oops something went wrong ! Please verify the extension
+                        configuration.
+                    </Typography>
+                </div>
             );
         } else {
             return (

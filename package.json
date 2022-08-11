@@ -1,6 +1,6 @@
 {
     "name": "start-gg-profile-viewer",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "This project is a twitch extension to show results from your tournaments on start.gg.",
     "main": "index.js",
     "scripts": {

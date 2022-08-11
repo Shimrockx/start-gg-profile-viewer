@@ -14,11 +14,12 @@ export default class EventResult extends React.Component {
 
     getEventStandingPlacement() {
         if (this.props.node.standings.nodes.length > 0) {
+            let placement = this.props.node.standings.nodes[0].placement;
             return (
                 <>
                     <span className="event-placement">
-                        {this.props.node.standings.nodes[0].placement}
-                        th
+                        {placement}
+                        {this.getPlacementAcronym(placement)}
                     </span>
                     <span className="event-attendees">
                         {" "}
@@ -44,6 +45,20 @@ export default class EventResult extends React.Component {
             }
         }
         return imgUrl;
+    }
+
+    getPlacementAcronym(placement) {
+        let acronym = "th";
+
+        if (placement == 1) {
+            acronym = "st";
+        } else if (placement == 2) {
+            acronym = "nd";
+        } else if (placement == 3) {
+            acronym = "rd";
+        }
+
+        return acronym;
     }
 
     render() {

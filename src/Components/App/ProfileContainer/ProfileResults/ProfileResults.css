@@ -24,5 +24,4 @@
     margin-bottom: 8px;
     margin-top: 8px;
     display: grid;
-    grid-template-columns: repeat(0, 1fr);
 }
