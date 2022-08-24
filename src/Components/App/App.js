@@ -160,11 +160,66 @@ export default class App extends React.Component {
         }
     }
 
-    async setConfig(config) {
-        const user = await this.getUser(config.token);
+    componentDidMount() {
+        if (this.twitch) {
+            this.twitch.onAuthorized(async (auth) => {
+                this.Authentication.setToken(auth.token, auth.userId);
+                await this.getConfig(auth.token, auth.userId);
+            });
+
+            this.twitch.onContext((context, delta) => {
+                this.contextUpdate(context, delta);
+            });
+        }
+    }
+
+    componentWillUnmount() {
+        if (this.twitch) {
+            this.twitch.unlisten("broadcast", () =>
+                console.log("successfully unlistened")
+            );
+        }
+    }
+
+    async fetchConfig(token, userId) {
+        try {
+            const response = await fetch(
+                `https://startgg.profile.smartjobsite.com/api/users/${userId}`,
+                {
+                    method: "GET",
+                    headers: {
+                        Authorization: "Bearer " + token,
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+            return response.json();
+        } catch (error) {
+            return null;
+        }
+    }
+
+    async getConfig(token, userId) {
+        const config = await this.fetchConfig(token, userId);
+        if (config != null) {
+            if (config.msg == null) {
+                const startggToken = this.parseJwt(config.token).startggToken;
+                this.setConfig(startggToken);
+            }
+        }
+    }
+
+    parseJwt(token) {
+        var base64Url = token.split(".")[1];
+        var base64 = base64Url.replace("-", "+").replace("_", "/");
+        return JSON.parse(window.atob(base64));
+    }
+
+    async setConfig(startggToken) {
+        const user = await this.getUser(startggToken);
         if (user.data != null) {
             const events = await this.getEvents(
-                config.token,
+                startggToken,
                 user.data.currentUser.player.gamerTag
             );
             if (events.data != null) {
@@ -187,43 +242,6 @@ export default class App extends React.Component {
                     configError: true,
                 };
             });
-        }
-    }
-
-    componentDidMount() {
-        if (this.twitch) {
-            this.twitch.onAuthorized((auth) => {
-                this.Authentication.setToken(auth.token, auth.userId);
-            });
-
-            this.twitch.onContext((context, delta) => {
-                this.contextUpdate(context, delta);
-            });
-
-            this.twitch.configuration.onChanged(() => {
-                let config = this.twitch.configuration.broadcaster
-                    ? this.twitch.configuration.broadcaster.content
-                    : "";
-                try {
-                    config = JSON.parse(config);
-                    this.setConfig(config);
-                } catch (error) {
-                    config = "";
-                    this.setState(() => {
-                        return {
-                            configError: true,
-                        };
-                    });
-                }
-            });
-        }
-    }
-
-    componentWillUnmount() {
-        if (this.twitch) {
-            this.twitch.unlisten("broadcast", () =>
-                console.log("successfully unlistened")
-            );
         }
     }
 

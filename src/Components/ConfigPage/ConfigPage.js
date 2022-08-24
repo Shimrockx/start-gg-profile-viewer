@@ -1,8 +1,6 @@
 import React from "react";
 import Authentication from "../Authentication/Authentication";
 import ConfigContainer from "./ConfigContainer/ConfigContainer";
-
-import Snackbar from "@mui/material/Snackbar";
 import "./Config.css";
 
 export default class ConfigPage extends React.Component {
@@ -16,7 +14,6 @@ export default class ConfigPage extends React.Component {
             finishedLoading: false,
             theme: "light",
             player: { token: "" },
-            configUpdated: false,
         };
     }
 
@@ -31,10 +28,11 @@ export default class ConfigPage extends React.Component {
     componentDidMount() {
         // do config page setup as needed here
         if (this.twitch) {
-            this.twitch.onAuthorized((auth) => {
+            this.twitch.onAuthorized(async (auth) => {
                 this.Authentication.setToken(auth.token, auth.userId);
                 if (!this.state.finishedLoading) {
                     // if the component hasn't finished loading (as in we've not set up after getting a token), let's set it up now.
+                    await this.getConfig(auth.token, auth.userId);
 
                     // now we've done the setup for the component, let's set the state to true to force a rerender with the correct data.
                     this.setState(() => {
@@ -46,37 +44,107 @@ export default class ConfigPage extends React.Component {
             this.twitch.onContext((context, delta) => {
                 this.contextUpdate(context, delta);
             });
-
-            this.twitch.configuration.onChanged(() => {
-                let config = this.twitch.configuration.broadcaster
-                    ? this.twitch.configuration.broadcaster.content
-                    : [];
-                try {
-                    config = JSON.parse(config);
-                } catch (e) {
-                    config = [];
-                }
-
-                this.setState(() => {
-                    return {
-                        player: config,
-                    };
-                });
-            });
         }
     }
 
+    async fetchConfig(token, userId) {
+        try {
+            const response = await fetch(
+                `https://startgg.profile.smartjobsite.com/api/users/${userId}`,
+                {
+                    method: "GET",
+                    headers: {
+                        Authorization: "Bearer " + token,
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+            return response.json();
+        } catch (error) {
+            return null;
+        }
+    }
+
+    async createConfig(token, userId, startggToken) {
+        try {
+            let body = {
+                twitchUserId: userId,
+                startggToken: startggToken,
+            };
+            const response = await fetch(`https://startgg.profile.smartjobsite.com/api/users/`, {
+                method: "POST",
+                headers: {
+                    Authorization: "Bearer " + token,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(body),
+            });
+            return response.json();
+        } catch (error) {
+            return null;
+        }
+    }
+
+    async updateConfig(token, userId, startggToken) {
+        try {
+            let body = {
+                twitchUserId: userId,
+                startggToken: startggToken,
+            };
+
+            const response = await fetch(
+                `https://startgg.profile.smartjobsite.com/api/users/${userId}`,
+                {
+                    method: "PUT",
+                    headers: {
+                        Authorization: "Bearer " + token,
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(body),
+                }
+            );
+            return response.json();
+        } catch (error) {
+            return null;
+        }
+    }
+
+    async getConfig(token, userId) {
+        const config = await this.fetchConfig(token, userId);
+        if (config != null) {
+            if (config.msg == null) {
+                const startggToken = this.parseJwt(config.token).startggToken;
+                this.setState(() => {
+                    return {
+                        player: {
+                            token: startggToken,
+                        },
+                    };
+                });
+            }
+        }
+    }
+
+    parseJwt(token) {
+        var base64Url = token.split(".")[1];
+        var base64 = base64Url.replace("-", "+").replace("_", "/");
+        return JSON.parse(window.atob(base64));
+    }
+
     saveConfig(player) {
+        if (this.state.player.token == "") {
+            this.twitch.onAuthorized(async (auth) => {
+                this.Authentication.setToken(auth.token, auth.userId);
+                await this.createConfig(auth.token, auth.userId, player.token);
+            });
+        } else {
+            this.twitch.onAuthorized(async (auth) => {
+                this.Authentication.setToken(auth.token, auth.userId);
+                await this.updateConfig(auth.token, auth.userId, player.token);
+            });
+        }
+
         this.state.player = player;
-        let json = JSON.stringify(player);
-        this.twitch.configuration.set("broadcaster", "0.0.1", json);
-
-        // Enable snackbar
-        this.state.configUpdated = true;
-
-        setTimeout(() => {
-            this.state.configUpdated = false;
-        }, 6000);
     }
 
     render() {
@@ -94,11 +162,6 @@ export default class ConfigPage extends React.Component {
                             theme={this.state.theme}
                             player={this.state.player}
                             saveConfig={(player) => this.saveConfig(player)}
-                        />
-                        <Snackbar
-                            open={this.state.configUpdated}
-                            autoHideDuration={6000}
-                            message="Configuration updated !"
                         />
                     </div>
                 </div>

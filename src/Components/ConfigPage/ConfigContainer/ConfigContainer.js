@@ -30,7 +30,6 @@ export default class ConfigContainer extends React.Component {
                 mode: this.props.theme == "dark" ? "dark" : "light",
             },
         });
-
     }
 
     onSubmit(event) {
@@ -43,16 +42,6 @@ export default class ConfigContainer extends React.Component {
             };
             this.props.saveConfig(this.state.player);
         }
-    }
-
-    handleInputChange(event) {
-        const target = event.target;
-        const value = target.value;
-        const name = target.name;
-
-        this.setState({
-            [name]: value,
-        });
     }
 
     componentDidMount() {}
