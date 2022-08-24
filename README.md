@@ -2,7 +2,7 @@
 
 This project is a twitch extension to show results from your tournaments on start.gg.
 
-**Install latest release [here](https://dashboard.twitch.tv/extensions/ksjaek493w0o9wdyfg7ud45pve0ec4-0.0.2)**
+**Install latest release [here](https://dashboard.twitch.tv/extensions/ksjaek493w0o9wdyfg7ud45pve0ec4-1.0.0)**
 
 ## Contributing
 
